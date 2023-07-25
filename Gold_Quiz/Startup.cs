@@ -56,6 +56,7 @@ namespace Gold_Quiz
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // tarif kardan mian afzarha ya middle ware ha
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -75,11 +76,37 @@ namespace Gold_Quiz
 
             app.UseAuthorization();
 
+            //tarif masir
             app.UseEndpoints(endpoints =>
             {
+                // map contoller haro bekhone az yek jaii
+                endpoints.MapControllers();
+
+                //default Route
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
+
+                //Admin panel Route
+                endpoints.MapAreaControllerRoute(
+                    "AdminPanel",
+                    "AdminPanel",
+                    "AdminPanel/{Controller=AdminDashboard}/{action=index}/{id?}"
+                    );
+
+                //Teacher panel Route
+                endpoints.MapAreaControllerRoute(
+                    "TeacherPanel",
+                    "TeacherPanel",
+                    "TeacherPanel/{Controller=TeacherDashboard}/{action=index}/{id?}"
+                    );
+
+                //Student panel Route
+                endpoints.MapAreaControllerRoute(
+                    "StudentPanel",
+                    "StudentPanel",
+                    "StudentPanel/{Controller=StudentDashboard}/{action=index}/{id?}"
+                    );
             });
         }
     }
