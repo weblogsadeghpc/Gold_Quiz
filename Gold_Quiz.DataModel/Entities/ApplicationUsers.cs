@@ -16,7 +16,7 @@ namespace Gold_Quiz.DataModel.Entities
         //maghadir company type 1 = مدرسه
         //2 = دانشگاه 
         //3 = موسسه آموزشی
-        //4 = سازممان یا شرکت
+        //4 = سازمان یا شرکت
         public byte CustomerType { get; set; }
         // be dalile estefade ziad va inke nemikhaim zaid pichide behshe az byte estefaed mikonim 
         //1 = admin
