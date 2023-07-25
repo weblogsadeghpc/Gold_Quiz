@@ -91,21 +91,21 @@ namespace Gold_Quiz
                 endpoints.MapAreaControllerRoute(
                     "AdminPanel",
                     "AdminPanel",
-                    "AdminPanel/{Controller=AdminDashboard}/{action=index}/{id?}"
+                    "AdminPanel/{Controller=AdminDashboard}/{action=Index}/{id?}"
                     );
 
                 //Teacher panel Route
                 endpoints.MapAreaControllerRoute(
                     "TeacherPanel",
                     "TeacherPanel",
-                    "TeacherPanel/{Controller=TeacherDashboard}/{action=index}/{id?}"
+                    "TeacherPanel/{Controller=TeacherDashboard}/{action=Index}/{id?}"
                     );
 
                 //Student panel Route
                 endpoints.MapAreaControllerRoute(
                     "StudentPanel",
                     "StudentPanel",
-                    "StudentPanel/{Controller=StudentDashboard}/{action=index}/{id?}"
+                    "StudentPanel/{Controller=StudentDashboard}/{action=Index}/{id?}"
                     );
             });
         }

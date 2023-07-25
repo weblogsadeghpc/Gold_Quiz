@@ -19,19 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
-    <Folder Include="Areas\AdminPanel\Controllers\" />
     <Folder Include="Areas\AdminPanel\Data\" />
     <Folder Include="Areas\AdminPanel\Models\" />
-    <Folder Include="Areas\AdminPanel\Views\" />
-    <Folder Include="Areas\StudentPanel\Controllers\" />
     <Folder Include="Areas\StudentPanel\Data\" />
     <Folder Include="Areas\StudentPanel\Models\" />
-    <Folder Include="Areas\StudentPanel\Views\" />
-    <Folder Include="Areas\TeacherPanel\Controllers\" />
     <Folder Include="Areas\TeacherPanel\Data\" />
     <Folder Include="Areas\TeacherPanel\Models\" />
-    <Folder Include="Areas\TeacherPanel\Views\" />
   </ItemGroup>
 
 </Project>
