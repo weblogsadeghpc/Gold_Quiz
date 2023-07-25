@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gold_Quiz.CommonLayer\Gold_Quiz.CommonLayer.csproj" />
+    <ProjectReference Include="..\Gold_Quiz.DataModel\Gold_Quiz.DataModel.csproj" />
+  </ItemGroup>
+
 </Project>
