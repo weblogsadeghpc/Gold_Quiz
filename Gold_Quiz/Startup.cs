@@ -29,6 +29,7 @@ namespace Gold_Quiz
         public void ConfigureServices(IServiceCollection services)
         {
             //estefade az database service 
+
             //Data Base Service 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
