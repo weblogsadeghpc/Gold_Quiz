@@ -1,3 +1,64 @@
-﻿<p>
-    Login Page
-</p>
+﻿@model LoginViewModel
+
+<div class="panel panel-body col-md-4 col-xs-12" style="margin:0 auto; text-align:center; background-color:white; border-radius:5px; box-shadow:0px 0px 6px 4px gray;">
+    <div class="modal-body">
+        <div>
+            <img src="~/images/shiny-glossy-icon-with-black-design-on-white-and-gold-background-FRHE8G.png" style="width:75px; height:75px; margin-bottom:6px;" />
+        </div>
+        <div style="text-align:center; font-weight:bold;">
+            ورود به سیستم
+        </div>
+
+        <hr style="height:1px; width:100%; background-color:gray; " />
+        <div class="col-xs-12 col-md-12 alert" style="text-align:center; background-color:forestgreen">
+            <span style="text-align:center; color:gold; font-size:2em;">
+                Gold Quiz
+            </span>
+        </div>
+
+        <form asp-controller="Account" asp-action="Login" method="post">
+
+            <!--نام کاربری یا شماره موبایل-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <i class="f fa-mobile-phone" style="font-size:25px; width:30px; padding-top:6px; padding-left:1px; padding-right:1px; margin-left:0px; border:1px solid gray;
+                    border-radius:0 5px 5px 0;">
+
+
+                    </i>
+                    <input asp-for="UserName" type="text" class="form-control" autocomplete="off"
+                           style="text-align:center; font-weight:bold; border-redius:5px 0 0 5px;" placeholder="شماره موبایل" />
+                </div>
+                <span asp-validation-for="UserName" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--رمز عبور-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <i class="f fa-user-secret" style="font-size:25px; width:30px; padding-top:6px; padding-left:1px; padding-right:1px; margin-left:0px; border:1px solid gray;
+                    border-radius:0 5px 5px 0;">
+
+
+                    </i>
+                    <input asp-for="Password" type="text" class="form-control" autocomplete="off"
+                           style="text-align:center; font-weight:bold; border-redius:5px 0 0 5px;" placeholder="رمز عبور" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <div>
+                    <input type="submit" class="btn btn-success center-block" value="ورود به سامانه" />
+                </div>
+                <div style="margin-top:4px; font-size:13px;">
+                    <a href="#">فراموشی رمز عبور</a>
+                </div>
+            </div>
+        </form>
+        <hr style="height:1px; width:100%; background-color:green; " />
+        <div style="border:2px solid darkblue; padding:10px; background-color:#d0cf1;">
+            <a href="#" style="text-decoration:none;font-weight:bold; color:black">تبلیغات</a>
+        </div>
+
+    </div>
+</div>

@@ -25,6 +25,7 @@
     <Folder Include="Areas\StudentPanel\Models\" />
     <Folder Include="Areas\TeacherPanel\Data\" />
     <Folder Include="Areas\TeacherPanel\Models\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
