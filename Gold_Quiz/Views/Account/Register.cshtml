@@ -1,3 +1,89 @@
-﻿<p>
-    Register
-</p>
+﻿@model RegisterViewModel
+
+<div class="panel panel-body col-md-6 col-xs-12" style="margin:0 auto; text-align:center; background-color:white; border-radius:5px; box-shadow:0px 0px 6px 4px gray; margin-top:10px;">
+    <div class="modal-body">
+        <div>
+            <img src="~/images/shiny-glossy-icon-with-black-design-on-white-and-gold-background-FRHE8G.png" style="width:75px; height:75px; margin-bottom:6px;" />
+        </div>
+        <div style="text-align:center; font-weight:bold;">
+            ثبت نام در سیستم
+        </div>
+        <hr style="height:1px; width:100%; background-color:gray; " />
+
+        <div class="col-md-12 col-xs-12 alert" style="col-md-12 col-xs-12 alert text-align:center;">
+            <span>
+                <div class="col-xs-12 col-md-12 alert" style="text-align:center; background-color:forestgreen">
+                    <span style="text-align:center; color:gold; font-size:2em;">
+                        Gold Quiz
+                    </span>
+                </div>
+            </span>
+        </div>
+
+        <form asp-controller="Account" asp-action="Register" method="post">
+
+            <!--نام-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <input asp-for="FirstName" type="text" class="form-control" autocomplete="off"
+                           style=" font-weight:bold; border-redius:5px 0 0 5px;" placeholder="نام" />
+                </div>
+                <span asp-validation-for="FirstName" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--نام خانوادگی-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <input asp-for="Family" type="text" class="form-control" autocomplete="off"
+                           style=" font-weight:bold; border-redius:5px 0 0 5px;" placeholder="نام خانوادگی" />
+                </div>
+                <span asp-validation-for="Family" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--نام محل-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <input asp-for="CustomerName" type="text" class="form-control" autocomplete="off"
+                           style=" font-weight:bold; border-redius:5px 0 0 5px;" placeholder="نام مدرسه , دانشگاه , موسسه ..." />
+                </div>
+                <span asp-validation-for="CustomerName" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--نام کاربری یا شماره موبایل-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <input asp-for="UserName" type="text" class="form-control" autocomplete="off"
+                           style=" font-weight:bold; border-redius:5px 0 0 5px;" placeholder="شماره موبایل" />
+                </div>
+                <span asp-validation-for="UserName" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--رمز عبور-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <input asp-for="Password" type="text" class="form-control" autocomplete="off"
+                           style="font-weight:bold; border-redius:5px 0 0 5px;" placeholder="رمز عبور" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--تکرار رمز عبور-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <input asp-for="ConfirmPassword" type="text" class="form-control" autocomplete="off"
+                           style="font-weight:bold; border-redius:5px 0 0 5px;" placeholder="تکرار رمز عبور" />
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <div>
+                    <input type="submit" class="btn btn-success center-block" value="ثبت نام" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+</div>
