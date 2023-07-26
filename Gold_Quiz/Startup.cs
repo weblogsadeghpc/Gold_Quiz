@@ -1,3 +1,4 @@
+using AutoMapper;
 using Gold_Quiz.DataModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Gold_Quiz.DataModel.Entities;
 using Microsoft.AspNetCore.Identity;
+
 
 namespace Gold_Quiz
 {
@@ -52,6 +54,7 @@ namespace Gold_Quiz
 
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
         }
 

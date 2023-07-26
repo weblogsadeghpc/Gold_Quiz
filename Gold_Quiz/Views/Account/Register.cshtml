@@ -40,13 +40,26 @@
                 <span asp-validation-for="Family" class="text-danger" style="font-weight:bold;"></span>
             </div>
 
-            <!--نام محل-->
+            <!--نام موسسه-->
             <div class="form-group col-xs-12 col-md-12">
                 <div class="input-group">
                     <input asp-for="CustomerName" type="text" class="form-control" autocomplete="off"
                            style=" font-weight:bold; border-redius:5px 0 0 5px;" placeholder="نام مدرسه , دانشگاه , موسسه ..." />
                 </div>
                 <span asp-validation-for="CustomerName" class="text-danger" style="font-weight:bold;"></span>
+            </div>
+
+            <!--نوع موسسه-->
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="input-group">
+                    <select class="form-control" style="font-weight:bold;" asp-for="CustomerType">
+                        <option value="0">لطفا نوع محل را انتخاب کنید </option>
+                        <option value="1">مدرسه</option>
+                        <option value="2">دانشگاه</option>
+                        <option value="3">موسسه ی آموزشی </option>
+                        <option value="4">شرکت و سازمان</option>
+                    </select>
+                </div>
             </div>
 
             <!--نام کاربری یا شماره موبایل-->
@@ -61,7 +74,7 @@
             <!--رمز عبور-->
             <div class="form-group col-xs-12 col-md-12">
                 <div class="input-group">
-                    <input asp-for="Password" type="text" class="form-control" autocomplete="off"
+                    <input asp-for="Password" type="password" class="form-control" autocomplete="off"
                            style="font-weight:bold; border-redius:5px 0 0 5px;" placeholder="رمز عبور" />
                 </div>
                 <span asp-validation-for="Password" class="text-danger" style="font-weight:bold;"></span>
@@ -70,7 +83,7 @@
             <!--تکرار رمز عبور-->
             <div class="form-group col-xs-12 col-md-12">
                 <div class="input-group">
-                    <input asp-for="ConfirmPassword" type="text" class="form-control" autocomplete="off"
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" autocomplete="off"
                            style="font-weight:bold; border-redius:5px 0 0 5px;" placeholder="تکرار رمز عبور" />
                 </div>
                 <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-weight:bold;"></span>

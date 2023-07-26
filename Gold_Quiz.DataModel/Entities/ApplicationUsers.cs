@@ -27,7 +27,7 @@ namespace Gold_Quiz.DataModel.Entities
         // control bar roye account ha
         //true = Active Account
         //false = deactive Account 
-        public byte IsActive { get; set; }
+        public bool IsActive { get; set; }
 
 
     }
