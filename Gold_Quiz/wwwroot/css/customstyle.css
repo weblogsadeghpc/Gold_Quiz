@@ -1,4 +1,18 @@
-﻿.mainPic {
+﻿@font-face {
+    font-family: 'IRANSansWeb';
+    src: url('/fonts/IRANSansWeb.eot');
+    src: url('/fonts/IRANSansWeb.eot') format('embedded-opentype'), url('/fonts/IRANSansWeb.woff') format('woff'), url('/fonts/IRANSansWeb.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'IRANSansWeb' !important;
+    font-weight: 400;
+}
+
+
+.mainPic {
     background-image: linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0)),url("/images/New-blog-graphic.jpg");
     background-repeat: no-repeat;
     height: auto;
