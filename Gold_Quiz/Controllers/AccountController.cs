@@ -9,5 +9,10 @@ namespace Gold_Quiz.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }

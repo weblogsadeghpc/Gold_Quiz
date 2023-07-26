@@ -6,7 +6,10 @@
     <title>@ViewData["Title"] - Gold_Quiz</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/customstyle.css" />
+    <link rel="stylesheet" href="~/css/customstyle.css" /> 
+    @*font awsome css*@
+    <link href="~/css/fontawesome5/css/all.css" rel="stylesheet" />
+
 </head>
 <body style="direction:rtl;" class="mainPic">
     <div class="container">
@@ -18,6 +21,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @*font awsome js*@
+    <script src="~/css/fontawesome5/js/all.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

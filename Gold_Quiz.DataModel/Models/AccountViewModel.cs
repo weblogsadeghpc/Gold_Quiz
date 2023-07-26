@@ -16,4 +16,5 @@ namespace Gold_Quiz.DataModel.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "پسورد وارد نشده است.")] //halate ejbari
         public string Password { get; set; }
     }
+
 }
