@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Gold_Quiz.DataModel.Entities;
-using Gold_Quiz.DataModel.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.IdentityModel.Tokens;
+using Gold_Quiz.DataModel.Entities;
+using Gold_Quiz.DataModel.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gold_Quiz.Controllers
@@ -19,10 +19,10 @@ namespace Gold_Quiz.Controllers
         //baraye estefade az in do class bayad initial bokonim tazrigh bokonim :
 
         //tazrighe vabastegi 
-        public AccountController(UserManager<ApplicationUsers> userManager, SignInManager<ApplicationUsers> SignInManager, IMapper mapper)
+        public AccountController(UserManager<ApplicationUsers> userManager, SignInManager<ApplicationUsers> signInManager, IMapper mapper)
         {
             _userManager = userManager;
-            _SignInManager = SignInManager;
+            _SignInManager = signInManager;
             _mapper = mapper;
             //  mitonim az motaghayere mapper estefade konim khili ham sade
         }
@@ -32,16 +32,59 @@ namespace Gold_Quiz.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken] // attribute baraye bahse amniate // baes mishe vaghti kasi login mikone tavasote token shenasaii beshe // token haye mokhtalef baraye yek user gheyre motabar ast
+        public async Task<IActionResult> Login(LoginViewModel model) // model ro misfrestim samte server
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(model.UserName);
+                if (user == null)
+                {
+                    ModelState.AddModelError("UserName", "اطلاعات وارد شده صحیح نمی باشد ."); // inja ke neveshtim password yani dar zire password khata haro neshoon bede // bakhshe asp-validation-for
+                    return View(model);
+                }
+                else // agar user peyda shod
+                {
+                    var result = await _SignInManager.PasswordSignInAsync(model.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);//mige user name chie migim user password fovomi sevomi ham bayae mara be khater bespar ast chaharomi hame mige age mesalan s3 bar ramz eshtebah zad user block beshe 
+                    if (result.Succeeded)
+                    {
+                        //Login
+                        if (user.IsActive == 0)
+                        {// user accountesh enable nashode bood
+                            ModelState.AddModelError("UserName", "اکانت شما در حال بررسی میباشد هنوز فعال نشده است ."); // inja ke neveshtim password yani dar zire password khata haro neshoon bede // bakhshe asp-validation-for
+                            return View(model);
+                        }
+                        if (user.UserType == 1)
+                        {
+                            //Admin
+                            return Redirect("/AdminPanel/AdminDashboard/Index");
+                            // Redirect to action baraye yek area hast mamoolan va inja kar nemikone
+                            // yani redirect dakheli 
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserName", "اطلاعات وارد شده صحیح نمی باشد .");
+                        return View(model);
+                    }
+                }
+            }
+            return View(model); // namayesh khata
+
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             // dar zamane estefade az  identity : (bayad tavjoh kard) 
-            //baraye  ehraz hoviate user dota class darim : 
+            // baraye  ehraz hoviate user dota class darim : 
 
             if (ModelState.IsValid) // yani hame etelaat be dorosti vared shode bood
             {
@@ -66,7 +109,7 @@ namespace Gold_Quiz.Controllers
                     var mapUser = _mapper.Map<ApplicationUsers>(model);
                     mapUser.PhoneNumber = model.UserName; // phone number hamoon username ast
                     mapUser.UserType = 1;//Admin // kesi ke dare sabte nam mikone admin ast
-                    mapUser.IsActive = false;// deActive
+                    mapUser.IsActive = 0;// deActive
 
                     //amaliate sabte nam
                     //ثبت نام کاربر

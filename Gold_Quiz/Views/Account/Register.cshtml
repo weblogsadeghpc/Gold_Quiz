@@ -1,5 +1,12 @@
 ﻿@model RegisterViewModel
 
+@{
+    CustomerTypeStaticEntity CT = new CustomerTypeStaticEntity(); // yek nemoone azesh sakhtim
+    List<CustomerTypeStaticEntity> ListCT = CT.GetCustomerType();
+    // methodi ke list ke ijad kardim ro be ma mide
+    // list dar CustomerTypeStaticEntity
+}
+
 <div class="panel panel-body col-md-6 col-xs-12" style="margin:0 auto; text-align:center; background-color:white; border-radius:5px; box-shadow:0px 0px 6px 4px gray; margin-top:10px;">
     <div class="modal-body">
         <div>
@@ -52,12 +59,9 @@
             <!--نوع موسسه-->
             <div class="form-group col-xs-12 col-md-12">
                 <div class="input-group">
-                    <select class="form-control" style="font-weight:bold;" asp-for="CustomerType">
-                        <option value="0">لطفا نوع محل را انتخاب کنید </option>
-                        <option value="1">مدرسه</option>
-                        <option value="2">دانشگاه</option>
-                        <option value="3">موسسه ی آموزشی </option>
-                        <option value="4">شرکت و سازمان</option>
+                    <select asp-items="@(new SelectList(ListCT,"ID","Title"))" 
+                             class="form-control" style="font-weight:bold;" asp-for="CustomerType">
+                        @*che listi ro mikhay namayesh bedi *@
                     </select>
                 </div>
             </div>

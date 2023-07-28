@@ -17,7 +17,7 @@
         </div>
 
         <form asp-controller="Account" asp-action="Login" method="post">
-
+            <span asp-validation-for="UserName" class="text-danger" style="font-weight:bold;"></span>
             <!--نام کاربری یا شماره موبایل-->
             <div class="form-group col-xs-12 col-md-12">
                 <div class="input-group">
@@ -26,7 +26,7 @@
                     <input asp-for="UserName" type="text" class="form-control" autocomplete="off"
                            style="text-align:center; font-weight:bold; border-redius:5px 0 0 5px;" placeholder="شماره موبایل" />
                 </div>
-                <span asp-validation-for="UserName" class="text-danger" style="font-weight:bold;"></span>
+                
             </div>
 
             <!--رمز عبور-->
@@ -34,7 +34,7 @@
                 <div class="input-group">
                     <i class="fas fa-key" style="font-size:25px; width:25px; height:38px;  padding:1px; margin-left:0px; border:1px solid gray;
                     border-radius:0 5px 5px 0;"></i>
-                    <input asp-for="Password" type="text" class="form-control" autocomplete="off"
+                    <input asp-for="Password" type="password" class="form-control" autocomplete="off"
                            style="text-align:center; font-weight:bold; border-redius:5px 0 0 5px;" placeholder="رمز عبور" />
                 </div>
                 <span asp-validation-for="Password" class="text-danger" style="font-weight:bold;"></span>

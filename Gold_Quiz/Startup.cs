@@ -38,8 +38,7 @@ namespace Gold_Quiz
                 options.UseSqlServer(Configuration.GetConnectionString("ExamConnectionString"),
                     datamodel => datamodel.MigrationsAssembly("Gold_Quiz.DataModel"));
                 //dakhel che layer hast ? Gold_Quiz.DataModel   
-                // bayad connection string ra  yek ja tarif konim yeki az jaha dar appsetting.json ast
-
+                //bayad connection string ra  yek ja tarif konim yeki az jaha dar appsetting.json ast
             });
 
             //Identity Service
@@ -77,7 +76,9 @@ namespace Gold_Quiz
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            // in dota khili moheman baraye Login va bahs haye amniati va aval hatman aythentication badesh authorization
 
             //tarif masir
             app.UseEndpoints(endpoints =>
