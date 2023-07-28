@@ -21,6 +21,8 @@ namespace Gold_Quiz.DataModel
         //AspNetUsers
         //AspNetRoles
 
+        public DbSet<Courses> Course_Tbl { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
