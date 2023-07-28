@@ -58,7 +58,7 @@ namespace Gold_Quiz.Controllers
                         if (user.UserType == 1)
                         {
                             //Admin
-                            return Redirect("/AdminPanel/AdminDashboard/Index");
+                            return Redirect("AdminPanel/AdminDashboard/Index");
                             // Redirect to action baraye yek area hast mamoolan va inja kar nemikone
                             // yani redirect dakheli 
                         }

@@ -28,6 +28,13 @@
     <Folder Include="Areas\TeacherPanel\Models\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\Panel\assets\js\charts\google\bars\" />
+    <Folder Include="wwwroot\Panel\assets\js\charts\google\bubbles\" />
+    <Folder Include="wwwroot\Panel\assets\js\charts\google\lines\" />
+    <Folder Include="wwwroot\Panel\assets\js\charts\google\New folder\" />
+    <Folder Include="wwwroot\Panel\assets\js\charts\google\other\" />
+    <Folder Include="wwwroot\Panel\assets\js\maps\vector\" />
+    <Folder Include="wwwroot\Panel\assets\js\plugins\buttons\" />
   </ItemGroup>
 
 </Project>

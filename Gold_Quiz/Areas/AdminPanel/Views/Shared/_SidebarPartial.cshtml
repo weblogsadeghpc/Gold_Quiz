@@ -1,0 +1,123 @@
+﻿<style>
+    /* Copy in Sidebar Partial */
+    .navigation > li.active > a {
+        background-color: transparent;
+        color: white !important;
+        /*font-weight: bold;*/
+    }
+
+    .navigation li a {
+        background-color: transparent;
+        color: white !important;
+    }
+
+        .navigation li a:hover {
+            background-color: transparent;
+            color: yellow;
+        }
+
+    .navigation > li.active > a:focus {
+        background-color: transparent;
+    }
+
+    .navigation > li.active > a:hover {
+        background-color: transparent;
+    }
+
+    ul li {
+        font-size: 16px;
+        /*border-bottom:1px solid gray;*/
+    }
+
+        ul li ul li {
+            background-color: darkgoldenrod;
+            font-size: 14px;
+            padding-right: 15px;
+        }
+</style>
+
+<div class="sidebar sidebar-main" style="background-color:goldenrod;">
+    <div class="sidebar-content">
+
+        <!-- START - User menu -->
+        <div class="sidebar-user">
+            <div class="category-content">
+                <div class="media">
+                    <a href="#" class="media-left">
+                    </a>
+                    <div class="media-body">
+                        <span class="media-heading text-semibold" style="color:white; font-size:16px;">دبستان عرفان</span>
+                        <div class="text-size-mini text-muted">
+                            <span style="color:brown;font-size:14px;">پنل ادمین</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END - User menu -->
+        <!-- START - Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <div class="category-content no-padding">
+
+                <!-- START - Item Navigation -->
+                <ul class="navigation navigation-main">
+
+                    <!-- START - Item Navigation Header -->
+                    <li class="navigation-header">
+                        <span style="color:white; font-weight:bold;"> میز کار </span> <i class="icon-menu" title="صفحه اصلی"></i>
+                    </li>
+
+                    <li class="active">
+                        <a href="index.html">
+                            <i class="fas fa-dashboard"></i>
+                            <span>پیشخوان</span>
+                        </a>
+                    </li>
+                    <li>
+                    </li>
+                    <!-- END - Item Navigation Header -->
+                    <!-- START - مدیریت مدرس -->
+                    <li>
+                        <a href="#"><i class="fas fa-chalkboard-teacher"></i><span> مدیریت مدرس </span></a>
+
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fas fa-list-alt"></i><span> لیست مدرسین </span></a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <!--END - مدیریت مدرس-->
+                    <!-- START - مدیریت دانش آموزان -->
+                    <li>
+                        <a href="#"><i class="fas fa-user-graduate"></i><span> مدیریت دانش آموزان </span></a>
+
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fas fa-users"></i><span> لیست دانش آموزان </span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END - مدیریت دانش آموزان -->
+                    <!-- START - مدیریت دروس -->
+                    <li>
+                        <a href="#"><i class="fas fa-book-open"></i><span> مدیریت دروس </span></a>
+
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fas fa-book-dead"></i><span> لیست دروس </span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END - مدیریت دروس -->
+
+
+                </ul>
+                <!-- END - Item Navigation -->
+
+            </div>
+        </div>
+        <!-- END - Main navigation -->
+
+    </div>
+</div>

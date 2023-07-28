@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <!-- START - MetaTags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="fa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>پنل کاربری - سامانه ی Gold Quiz</title>
+    <!-- END - MetaTags -->
+    <!-- START - stylesheets -->
+    <link href="~/Panel/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Panel/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Panel/assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="~/Panel/assets/css/components.css" rel="stylesheet" type="text/css">
+    @*font awsome css*@
+    <link href="~/css/fontawesome5/css/all.css" rel="stylesheet" />
+
+</head>
+<body class="navbar-top">
+    <!-- START - Main Navibar -->
+    <partial name="_NavbarPartial" />
+    <!-- END - Main Navibar -->
+    <!-- START - Main Content -->
+    <div class="page-container">
+
+        <!-- START - Page Content -->
+        <div class="page-content">
+
+            <!-- START - Main Sidebar -->
+            <partial name="_SidebarPartial" />
+            <!-- END - Main Sidebar -->
+            <!-- START - Main Content -->
+            <div class="content-wrapper">
+
+                <!-- START - View header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <div style="padding-top:10px;">
+                        </div>
+                    </div>
+                </div>
+                <!-- END - View header -->
+                <!-- Content area -->
+                <div class="content">
+
+                    <!-- START - View Content -->
+                    <div class="row">
+                        @RenderBody()
+                        @*har view ke ma befresim inja namyesh dade mishe*@
+                    </div>
+                    <!-- END - View Content -->
+
+
+                </div>
+                <!-- /content area -->
+                <!-- Footer -->
+
+                <div class="breadcrumb-line" style="background-color:goldenrod; padding-top: 2px; border-top:1px solid gray; text-align:center; bottom:1px !important; position:fixed; width:100%;">
+                    <div class="col-md-offset-2 col-md-6">
+                        <span style="color: white;"> سیستم آزمون گیر <span style="color:red; font-weight:bold;">Gold Quiz</span</span>
+                    </div>
+                </div>
+
+                <!-- /footer -->
+            </div>
+            <!-- END - Main Content -->
+
+        </div>
+        <!-- END - Page Content -->
+
+    </div>
+    <!-- END - Main Content -->
+    <!--Top Loading-->
+    <script type="text/javascript" src="~/Panel/assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="~/Panel/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Panel/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Panel/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="~/Panel/assets/js/core/app.js"></script>
+    <!-- END - theme JS files -->
+    @await RenderSectionAsync("AdminScripts", required: false)
+    @*Esme script ha ast requird ham nist be in maani ke niaz nist hatman neveshe beshe *@
+
+</body>
+
+</html>
