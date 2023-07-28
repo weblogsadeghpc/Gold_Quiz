@@ -1,4 +1,7 @@
 ﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "ورود به سیستم";
+}
 
 <div class="panel panel-body col-md-4 col-xs-12" style="margin:0 auto; text-align:center; background-color:white; border-radius:5px; box-shadow:0px 0px 6px 4px gray; margin-top:10px;">
     <div class="modal-body">
@@ -26,7 +29,7 @@
                     <input asp-for="UserName" type="text" class="form-control" autocomplete="off"
                            style="text-align:center; font-weight:bold; border-redius:5px 0 0 5px;" placeholder="شماره موبایل" />
                 </div>
-                
+
             </div>
 
             <!--رمز عبور-->

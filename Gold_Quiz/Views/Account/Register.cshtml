@@ -1,4 +1,7 @@
 ﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "ثبت نام";
+}
 
 @{
     CustomerTypeStaticEntity CT = new CustomerTypeStaticEntity(); // yek nemoone azesh sakhtim
@@ -59,8 +62,8 @@
             <!--نوع موسسه-->
             <div class="form-group col-xs-12 col-md-12">
                 <div class="input-group">
-                    <select asp-items="@(new SelectList(ListCT,"ID","Title"))" 
-                             class="form-control" style="font-weight:bold;" asp-for="CustomerType">
+                    <select asp-items="@(new SelectList(ListCT,"ID","Title"))"
+                            class="form-control" style="font-weight:bold;" asp-for="CustomerType">
                         @*che listi ro mikhay namayesh bedi *@
                     </select>
                 </div>

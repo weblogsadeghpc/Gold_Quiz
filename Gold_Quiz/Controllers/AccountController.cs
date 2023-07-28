@@ -146,5 +146,11 @@ namespace Gold_Quiz.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        public IActionResult SuccesfullyRegister()
+        {
+            return View();
+        }
     }
 }
