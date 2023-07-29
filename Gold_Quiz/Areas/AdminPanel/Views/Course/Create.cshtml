@@ -21,14 +21,14 @@
                 <div>
                     <label asp-for="CourseName" class="control-label col-md-3 col-xs-12"></label>
                     <div class="col-md-9 col-xs-12">
-                        <input asp-for="CourseName" type="text" class="form-control" placeholder="نام درس ..." autocomplete="off" />
+                        <input asp-for="CourseName" type="text" class="form-control custominput" placeholder="نام درس ..." autocomplete="off" />
                         <span asp-validation-for="CourseName" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="col-xs-12 form-group" style="margin-top:15px;">
-                    <button type="submit" style="border:1px solid gray; border-radius:3px;"
-                    class="btn pull-right">
+                    <button type="submit"
+                    class="btn pull-right btnGreen">
                     <i class="glyphicon glyphicon-ok"></i>
                     ثبت اطلاعات
                     </button>

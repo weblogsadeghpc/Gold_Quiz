@@ -28,3 +28,17 @@ body {
     color: black !important;
     background-color: #bcc7f5;
 }
+
+.btnGreen {
+    border: 1px solid gray;
+    border-radius: 3px;
+    color: black !important;
+    background-color: #b6ff00;
+}
+
+.custominput {
+    border: 1px solid gray;
+    border-radius: 1px;
+    height: 35px;
+    margin-bottom: 15px;
+}
