@@ -27,7 +27,7 @@ namespace Gold_Quiz.DataModel.Repository
             // فقط خواندن دروس 
             get
             {
-                if (_courses != null)
+                if (_courses == null)
                 {
                     _courses = new GenericCRUD<Courses>(_context); // ersale _context
                 }

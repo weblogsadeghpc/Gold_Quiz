@@ -21,3 +21,10 @@ body {
     background-attachment: fixed;
     /*mikhaim ba scroll ziad bala paiin nashe*/
 }
+
+.btnBlue {
+    border: 1px solid gray;
+    border-radius: 3px;
+    color: black !important;
+    background-color: #bcc7f5;
+}
