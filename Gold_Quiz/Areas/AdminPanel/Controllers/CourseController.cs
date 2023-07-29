@@ -20,5 +20,10 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
             var model = _context.coursesUW.Get(); //list doros
             return View(model);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

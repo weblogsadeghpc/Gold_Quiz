@@ -89,11 +89,6 @@ namespace Gold_Quiz
                 // map contoller haro bekhone az yek jaii
                 endpoints.MapControllers();
 
-                //default Route
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
-
                 //Admin panel Route
                 endpoints.MapAreaControllerRoute(
                     "AdminPanel",
@@ -114,6 +109,12 @@ namespace Gold_Quiz
                     "StudentPanel",
                     "StudentPanel/{Controller=StudentDashboard}/{action=Index}/{id?}"
                     );
+
+                //default Route
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
+
             });
         }
     }

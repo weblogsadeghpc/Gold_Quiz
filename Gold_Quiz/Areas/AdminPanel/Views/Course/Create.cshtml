@@ -1,0 +1,41 @@
+﻿@model CourseViewModel
+
+@{
+    ViewData["AdminTitle"] = "ثبت درس جدید";
+}
+
+<div class="content">
+    <div class="panel panel-heading" style="box-shadow:3px 1px 0 gray; border-radius:2px;">
+        <span style="font-weight:bold">
+            <i class="icon-newspaper2">
+            </i>
+            فرم ثبت درس جدید
+        </span>
+    </div>
+
+    <div class="panel panel-body container-fluid"
+         style="border-radius:2px; box-shadow:3px 1px 1px 0 gray; background-color:#dbe1f7;">
+        <form asp-controller="Course" asp-action="Create" method="post">
+            <div class="col-md-8 col-md-offest-2">
+                <!--Course name-->
+                <div>
+                    <label asp-for="CourseName" class="control-label col-md-3 col-xs-12"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <input asp-for="CourseName" type="text" class="form-control" placeholder="نام درس ..." autocomplete="off" />
+                        <span asp-validation-for="CourseName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 form-group" style="margin-top:15px;">
+                    <button type="submit" style="border:1px solid gray; border-radius:3px;"
+                    class="btn pull-right">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    ثبت اطلاعات
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
