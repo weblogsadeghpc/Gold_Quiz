@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Gold_Quiz.DataModel.Entities;
 using Microsoft.AspNetCore.Identity;
-
+using Gold_Quiz.DataModel.Services;
+using Gold_Quiz.DataModel.Repository;
 
 namespace Gold_Quiz
 {
@@ -52,6 +53,8 @@ namespace Gold_Quiz
                 options.Password.RequireNonAlphanumeric = false;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); // service rahandasi shod .
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();

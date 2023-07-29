@@ -60,7 +60,7 @@ namespace Gold_Quiz.DataModel.Repository
             // halate shart ham toosh byad begzarim 
             IQueryable<Entity> query = _table; // yek list az entity mikhaim ke esmesh query ast 
             //jadvali ke be onvane vorodi gerefti ro beriz toye motaghayer query ke motaghayer query yek list ast be sorat IQurable 
-            if (whereVariable != null)
+            if (whereVariable != null) // shart
             {
                 query = query.Where(whereVariable); // shasrt dar neveshte mishe 
             }
