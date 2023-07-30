@@ -9,6 +9,8 @@ namespace Gold_Quiz.AutoMapping
         public Automap()
         {
             CreateMap<ApplicationUsers, RegisterViewModel>().ReverseMap();
+            // update course
+            CreateMap<Courses, CourseViewModel>().ReverseMap();
         }
     }
 }
