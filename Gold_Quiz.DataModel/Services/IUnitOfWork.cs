@@ -12,6 +12,9 @@ namespace Gold_Quiz.DataModel.Services
     {
         // takib class va interface == sevice ==> service bayad dar sturtup dar method configure service rahandazi beshe 
         GenericCRUD<Courses> coursesUW { get; } // faghat khandani
+        GenericCRUD<TeacherCourse> teacherCourseUW { get; }
+        GenericCRUD<CenterUsers> centerUsersUW { get; }
+        GenericCRUD<Centers> centersUW { get; }
         void Save();
         public void Dispose();
     }
