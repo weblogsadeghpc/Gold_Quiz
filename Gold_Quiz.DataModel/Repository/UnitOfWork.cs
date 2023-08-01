@@ -90,6 +90,13 @@ namespace Gold_Quiz.DataModel.Repository
         }
         // gharare in etelaati ro az database bekhone
 
+        //استفاده از تراکنش
+        public IEntityDataBaseTransaction BaseTransaction()
+        {
+            return new EntityDataBaseTransaction(_context);
+        }
+
+
         public void Save()
         {
             // method save baraye save kardan etelaat 

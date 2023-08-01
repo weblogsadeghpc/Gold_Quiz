@@ -18,7 +18,7 @@ namespace Gold_Quiz.DataModel.Entities
         //2 = دانشگاه 
         //3 = موسسه آموزشی
         //4 = سازمان یا شرکت
-        public byte CenterType { get; set; }
+        public string CenterType { get; set; }
         // be dalile estefade ziad va inke nemikhaim zaid pichide behshe az byte estefaed mikonim 
         //1 = admin
         //2 = Teacher
@@ -30,12 +30,7 @@ namespace Gold_Quiz.DataModel.Entities
         //kelid khareji
         [ForeignKey("CenterAdminID")]
         // in gharare list moshtarian ya marakezi ke dar system sabte nam kardand 
-        
-        public virtual ApplicationUsers Users { get; set; }
 
-        public static implicit operator Centers(Centers v)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual ApplicationUsers Users { get; set; }
     }
 }

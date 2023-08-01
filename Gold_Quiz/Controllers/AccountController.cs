@@ -92,70 +92,67 @@ namespace Gold_Quiz.Controllers
 
             if (ModelState.IsValid) // yani hame etelaat be dorosti vared shode bood
             {
-                //Register
-                try
+                using (var tr = _context.BaseTransaction())
                 {
-                    // aval control inke karbar dobare sabt name nakarde bashe
-                    var user = await _userManager.FindByNameAsync(model.UserName);
-                    //mige boro to database bebin in shomare telephone ro peyda mikoni ya na 
-                    //chon az dastore await estefade kardim bayad kole method ro async konim 
-                    // be sorate barname nevisi nahamzaman
-                    if (user != null)
+                    // نقش عملیات را دارد
+                    //Register
+                    try
                     {
-                        // user peyda shod
-                        ModelState.AddModelError("ConfirmPassword", "شماره تماس شما در سیستم ثبت شده است .");// enteha neshan bede hamoon akhar ke ConfirmPassword neveshtim 
-                        return View(model);
-                    }
-
-                    // auto maper ro khodesh bind mikone
-                    // che cizi ro beriz dar application users model ro beriz 
-                    //albate bayad moshakhas kard register view model be kodom jadval rikhte beshe
-                    var mapUser = _mapper.Map<ApplicationUsers>(model);
-                    mapUser.PhoneNumber = model.UserName; // phone number hamoon username ast
-                    mapUser.UserType = 1;//Admin // kesi ke dare sabte nam mikone admin ast
-                    mapUser.IsActive = 0;// deActive
-
-                    //amaliate sabte nam
-                    // 1 - ثبت کاربر در دیتابیس
-                    IdentityResult result = await _userManager.CreateAsync(mapUser, model.Password);// karbar dar in khat sabte nam mishe
-                    if (result.Succeeded)
-                    {
-                        // 2 - ثبت نقش برای کاربر
-                        await _userManager.AddToRoleAsync(mapUser, "Admin");// be karbar mapuser yek role bede // Role admin be user dadim 
-
-                        // 3 - ثبت مرکز در دیتابیس 
-                        Centers C = new Centers
+                        // aval control inke karbar dobare sabt name nakarde bashe
+                        var user = await _userManager.FindByNameAsync(model.UserName);
+                        //mige boro to database bebin in shomare telephone ro peyda mikoni ya na 
+                        //chon az dastore await estefade kardim bayad kole method ro async konim 
+                        // be sorate barname nevisi nahamzaman
+                        if (user != null)
                         {
-                            CenterName = model.CustomerName,
-                            CenterType = 1,
-                            CenterAdminID = mapUser.Id
-                        };
-                        _context.centersUW.Create(C);
-                        _context.Save();
+                            // user peyda shod
+                            ModelState.AddModelError("ConfirmPassword", "شماره تماس شما در سیستم ثبت شده است .");// enteha neshan bede hamoon akhar ke ConfirmPassword neveshtim 
+                            return View(model);
+                        }
 
-                        // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
+                        // auto maper ro khodesh bind mikone
+                        // che cizi ro beriz dar application users model ro beriz 
+                        //albate bayad moshakhas kard register view model be kodom jadval rikhte beshe
+                        var mapUser = _mapper.Map<ApplicationUsers>(model);
+                        mapUser.PhoneNumber = model.UserName; // phone number hamoon username ast
+                        mapUser.UserType = 1;//Admin // kesi ke dare sabte nam mikone admin ast
+                        mapUser.IsActive = 0;// deActive
 
-                        return RedirectToAction("SuccesfullyRegister");
+                        //amaliate sabte nam
+                        // 1 - ثبت کاربر در دیتابیس
+                        IdentityResult result = await _userManager.CreateAsync(mapUser, model.Password);// karbar dar in khat sabte nam mishe
+                        if (result.Succeeded)
+                        {
+                            // 2 - ثبت نقش برای کاربر
+                            await _userManager.AddToRoleAsync(mapUser, "Admin");// be karbar mapuser yek role bede // Role admin be user dadim 
+
+                            // 3 - ثبت مرکز در دیتابیس 
+                            Centers C = new Centers
+                            {
+                                CenterName = model.CustomerName,
+                                CenterType = model.CustomerType,
+                                CenterAdminID = mapUser.Id
+                            };
+                            _context.centersUW.Create(C);
+                            tr.commit(); // تراکنش راانجام بده 
+                            _context.Save();
+
+                            // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
+
+                            return RedirectToAction("SuccesfullyRegister");
+                            // 3 ja etelaat sabt mishe : 
+                            //1- Role
+                            //2- User
+                            //3- Centers
+                        }
+                        return RedirectToAction("Error", "Home");
                     }
-                    return RedirectToAction("Error", "Home");
-                    // class identity result natijeye amaliat ro negah midarad
+                    catch (Exception)
+                    {
+                        tr.RollBack(); // hich kari anjam nade
+                        return RedirectToAction("Error", "Home"); // agar error didi boro be controller => home action => error 
 
-                    //----------------------------------------------------------------------------//
-
-                    //ApplicationUsers u = new ApplicationUsers
-                    //{
-
-                    //    FirstName = model.FirstName,
-                    //    Family = model.Family,
-                    //    PhoneNumber = model.UserName,
-                    //    UserName = model.UserName,
-
-                    //};
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("Error", "Home"); // agar error didi boro be controller => home action => error 
-
+                    }
                 }
             }
             else

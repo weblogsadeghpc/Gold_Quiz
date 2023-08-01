@@ -15,6 +15,7 @@ namespace Gold_Quiz.DataModel.Services
         GenericCRUD<TeacherCourse> teacherCourseUW { get; }
         GenericCRUD<CenterUsers> centerUsersUW { get; }
         GenericCRUD<Centers> centersUW { get; }
+        IEntityDataBaseTransaction BaseTransaction();
         void Save();
         public void Dispose();
     }
