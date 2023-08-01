@@ -18,12 +18,14 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
         private readonly IUnitOfWork _context;
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly IMapper _mapper;
+        private readonly ICenterRepository _center;
 
-        public TeacherManagementController(IUnitOfWork context, UserManager<ApplicationUsers> userManager, IMapper mapper)
+        public TeacherManagementController(IUnitOfWork context, ICenterRepository center, UserManager<ApplicationUsers> userManager, IMapper mapper)
         {
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
+            _center = center;
         }
         public IActionResult Index()
         {
@@ -79,7 +81,7 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                             CenterUsers CU = new CenterUsers
                             {
                                 CenterAdminID = _userManager.GetUserId(HttpContext.User),// hamin usr ke dare etelaat ro submit mikone user admin ast 
-                                CenterID = 0,
+                                CenterID = _center.GetCenterID(_userManager.GetUserId(HttpContext.User)),
                                 CenterUserID = mapUser.Id // id modares ya daneshamooz
                             };
                             _context.centerUsersUW.Create(CU);
@@ -88,7 +90,7 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
 
                             // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
 
-                            return RedirectToAction("SuccesfullyRegister");
+                            return RedirectToAction("Index");
                             // 3 ja etelaat sabt mishe : 
                             //1- Role
                             //2- User

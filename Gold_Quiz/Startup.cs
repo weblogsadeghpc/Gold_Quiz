@@ -55,6 +55,7 @@ namespace Gold_Quiz
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>(); // service rahandasi shod .
+            services.AddScoped<ICenterRepository, CenterRepository>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
