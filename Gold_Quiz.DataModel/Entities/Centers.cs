@@ -33,5 +33,9 @@ namespace Gold_Quiz.DataModel.Entities
         
         public virtual ApplicationUsers Users { get; set; }
 
+        public static implicit operator Centers(Centers v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

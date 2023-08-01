@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gold_Quiz.DataModel;
+using Gold_Quiz.DataModel.Services;
 
 namespace Gold_Quiz.Controllers
 {
@@ -14,16 +16,18 @@ namespace Gold_Quiz.Controllers
     {
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly SignInManager<ApplicationUsers> _SignInManager;
+        private readonly IUnitOfWork _context;
         private readonly IMapper _mapper;
 
         //baraye estefade az in do class bayad initial bokonim tazrigh bokonim :
 
         //tazrighe vabastegi 
-        public AccountController(UserManager<ApplicationUsers> userManager, SignInManager<ApplicationUsers> signInManager, IMapper mapper)
+        public AccountController(UserManager<ApplicationUsers> userManager, IUnitOfWork context, SignInManager<ApplicationUsers> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _SignInManager = signInManager;
             _mapper = mapper;
+            _context = context;
             //  mitonim az motaghayere mapper estefade konim khili ham sade
         }
 
@@ -112,11 +116,25 @@ namespace Gold_Quiz.Controllers
                     mapUser.IsActive = 0;// deActive
 
                     //amaliate sabte nam
-                    //ثبت نام کاربر
+                    // 1 - ثبت کاربر در دیتابیس
                     IdentityResult result = await _userManager.CreateAsync(mapUser, model.Password);// karbar dar in khat sabte nam mishe
                     if (result.Succeeded)
                     {
-                        await _userManager.AddToRoleAsync(mapUser, "Admin");// be karbar mapuser yek role bede
+                        // 2 - ثبت نقش برای کاربر
+                        await _userManager.AddToRoleAsync(mapUser, "Admin");// be karbar mapuser yek role bede // Role admin be user dadim 
+
+                        // 3 - ثبت مرکز در دیتابیس 
+                        Centers C = new Centers
+                        {
+                            CenterName = model.CustomerName,
+                            CenterType = 1,
+                            CenterAdminID = mapUser.Id
+                        };
+                        _context.centersUW.Create(C);
+                        _context.Save();
+
+                        // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
+
                         return RedirectToAction("SuccesfullyRegister");
                     }
                     return RedirectToAction("Error", "Home");
