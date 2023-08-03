@@ -1,11 +1,30 @@
-﻿@* inja mikhaim yek teacher ro dar table users sabt konim ke usertype oon == 2 ast *@
-
-@model TeacherViewModel
+﻿@model TeacherViewModel
+@inject Gold_Quiz.DataModel.Services.IUnitOfWork _context
+@*// estafadeye mostaghim az  database baraye namayesh list doros moalem*@
 @*baraye modaresin jadid niaz be model jadid darim first name , last name , phone number har modares ro mikhaim baghie chhizaro khodemoon set mikonim *@
 
 @{
-    ViewData["AdminTitle"] = "ثبت مدرس جدید";
+    ViewData["AdminTitle"] = "ویرایش مدرس";
+
     List<Courses> ListCourse = ViewBag.CourseList;
+    // نمایش لیست دروس معلم
+    // bayad mostaghim az darabase list doros moalem ro bekhonim
+    var ListOfTeacherCourse = _context.teacherCourseUW.Get(t => t.TeacherID == Model.UserID)
+    .Select(c => c.CourseID).ToList(); // userid dar model hamoon teacher id ast
+                                       // ba esteafade az in dastoor list course id haye in teacher ro bedast miarim
+                                       // hala bayad course id haro be sorateb yek reshte matni dar biarim
+                                       // List course id haye yek moalem
+
+    string ListOfCourseString = "";
+    if (ListOfTeacherCourse.Count > 0)
+    {
+        // agar moalem dars dasht
+        for (int i = 0; i < ListOfTeacherCourse.Count; i++)
+        {
+            ListOfCourseString += ListOfTeacherCourse[i] + ","; // tak tak id haro ezafe kon
+        }
+        ListOfCourseString = ListOfCourseString.Substring(0, ListOfCourseString.Length - 1); // kam kardan , akhari
+    }
 }
 
 <style>
@@ -35,14 +54,17 @@
         <span style="font-weight:bold">
             <i class="icon-newspaper2">
             </i>
-            فرم ثبت مدرس جدید
+            فرم ویرایش اطلاعات مدرس
         </span>
     </div>
 
     <div class="panel panel-body container-fluid"
          style="border-radius:2px; box-shadow:3px 1px 1px 0 gray; background-color:#dbe1f7;">
-        <form asp-controller="TeacherManagement" asp-action="Create" method="post">
+        <form asp-controller="TeacherManagement" asp-action="Edit" method="post">
             <div class="col-md-8 col-md-offest-2">
+
+                <input asp-for="UserID" hidden />
+
                 <!--Teacher First name-->
                 <div>
                     <label asp-for="FirstName" class="control-label col-md-3 col-xs-12"></label>
@@ -65,7 +87,7 @@
                 <div>
                     <label asp-for="UserName" class="control-label col-md-3 col-xs-12"></label>
                     <div class="col-md-9 col-xs-12">
-                        <input asp-for="UserName" type="text" class="form-control custominput" placeholder="شماره تماس مدرس ..." autocomplete="off" />
+                        <input asp-for="UserName" type="text" readonly class="form-control custominput" placeholder="شماره تماس مدرس ..." autocomplete="off" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
                 </div>
@@ -79,6 +101,9 @@
                         <span asp-validation-for="CourseID" class="text-danger"></span>
                     </div>
                 </div>
+
+                <input hidden value="@ListOfCourseString" type="text" id="select2str" />
+                @*// list course id haye yek moalem dar in input dar ghesmat script paiin add mishe*@
 
                 <div class="col-xs-12 form-group" style="margin-top:15px;">
                     <a asp-controller="TeacherManagement" asp-action="Index" class="btn btnRed pull-right" style="margin-right:10px; ">
@@ -106,5 +131,8 @@
                 allowclear: true
             });
         });
+
+        var arr = $("#select2str").val().split(",");  // delimiter // yek array besaz va dar select2 namayesh bede
+        $('.js-multiple').select2().val(arr).trigger('change'); // boro id haro neshon bede
     </script>
 }

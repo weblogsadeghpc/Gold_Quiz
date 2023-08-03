@@ -121,8 +121,6 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                         //1- Role
                         //2- User
                         //3- Centers
-
-                        return RedirectToAction("Error", "Home");
                     }
                     catch (Exception)
                     {
@@ -150,6 +148,20 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                                                                           //};
                                                                           //lstcourses.Insert(0, mdl);
             ViewBag.CourseList = lstcourses;
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string TeacherID)
+        {
+            if (TeacherID == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            var Teacher = _mapper.Map<TeacherViewModel>(_context.userUW.GetById(TeacherID));
+            // az class application users ast vali dar view az teacherviewmodel estefade kardim pas bayad az mapper estefade konim 
+            Teacher.UserID = TeacherID;
+            CourseList(); // bayad seda zade shavad
+            return View(Teacher);
         }
     }
 }

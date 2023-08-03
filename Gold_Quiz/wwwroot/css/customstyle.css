@@ -36,6 +36,13 @@ body {
     background-color: #b6ff00;
 }
 
+.btnRed {
+    border: 4px solid black;
+    border-radius: 3px;
+    color: black !important;
+    background-color: #ff0000;
+}
+
 .custominput {
     border: 1px solid gray;
     border-radius: 1px;

@@ -25,5 +25,6 @@ namespace Gold_Quiz.DataModel.Models
 
         [Display(Name = "انتخاب درس")] // moalem che darsie
         public int CourseID { get; set; }
+        public string UserID { get; set; }
     }
 }

@@ -20,10 +20,28 @@ namespace Gold_Quiz.DataModel.Repository
         }
         // dare mige har table ke shoma darid yek property hast
 
+        private GenericCRUD<ApplicationUsers> _user; // tarif  user
         private GenericCRUD<Courses> _courses;
         private GenericCRUD<Centers> _centers;
         private GenericCRUD<CenterUsers> _centerUsers;
         private GenericCRUD<TeacherCourse> _teacherCourse;
+
+        //کاربران
+        public GenericCRUD<ApplicationUsers> userUW
+        {
+            // فقط خواندن 
+            // age jadid bood to update ezafe kon n
+            get
+            {
+                if (_user == null)
+                {
+                    _user = new GenericCRUD<ApplicationUsers>(_context); // ersale _context
+                }
+                return _user;
+                //va daryaft satr be sorate CRUD
+            }
+
+        }
 
         //مراکز 
         public GenericCRUD<Centers> centersUW
