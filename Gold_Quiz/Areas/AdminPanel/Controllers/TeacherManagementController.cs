@@ -36,11 +36,11 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
         {
             var model = _context.centerUsersUW.
                 Get(c => c.CenterAdminID == _userManager.GetUserId(HttpContext.User) && c.Users_ST.UserType == 2, "Users_ST");
+            return View(model);
             // hamin admin id ke toye system hast ro bia neshon bede users haye khodesh ro neshon bede
             // dar centerusers be name moalem dastresi nadaim join ham bayad konim 
             // listi  az center users vali ba shart
             // && List moalemin bedone && feghat list kole karbaran ast 2 = moalem , 1 = Admin ..
-            return View(model);
         }
 
         [HttpGet] // action method az type get

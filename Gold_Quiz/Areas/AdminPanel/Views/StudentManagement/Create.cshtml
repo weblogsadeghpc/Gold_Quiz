@@ -1,0 +1,97 @@
+﻿@* inja mikhaim yek teacher ro dar table users sabt konim ke usertype oon == 2 ast *@
+
+@model StudentViewModel
+@*baraye modaresin jadid niaz be model jadid darim first name , last name , phone number har modares ro mikhaim baghie chhizaro khodemoon set mikonim *@
+
+@{
+    ViewData["AdminTitle"] = "ثبت دانش آموز جدید";
+}
+
+<style>
+    .select2-selection {
+        border: 1px solid gray !important;
+        border-radius: 0px !important;
+        height: 35px !important;
+        direction: rtl !important;
+        color: black;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        color: black;
+    }
+
+    .select2-container--default {
+        width: 100% !important;
+    }
+
+    .select2-results__options {
+        text-align: right;
+    }
+</style>
+
+<div class="content">
+    <div class="panel panel-heading" style="box-shadow:3px 1px 0 gray; border-radius:2px;">
+        <span style="font-weight:bold">
+            <i class="fas fa-user-graduate">
+            </i>
+            فرم ثبت دانش آموز جدید
+        </span>
+    </div>
+
+    <div class="panel panel-body container-fluid"
+         style="border-radius:2px; box-shadow:3px 1px 1px 0 gray; background-color:#dbe1f7;">
+        <form asp-controller="TeacherManagement" asp-action="Create" method="post">
+            <div class="col-md-8 col-md-offest-2">
+                <!--Teacher First name-->
+                <div>
+                    <label asp-for="FirstName" class="control-label col-md-3 col-xs-12"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <input asp-for="FirstName" type="text" class="form-control custominput" placeholder="نام دانش آموز ..." autocomplete="off" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Teacher Last name-->
+                <div>
+                    <label asp-for="Family" class="control-label col-md-3 col-xs-12"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <input asp-for="Family" type="text" class="form-control custominput" placeholder="نام خانوادگی  ..." autocomplete="off" />
+                        <span asp-validation-for="Family" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Teacher User name-->
+                <div>
+                    <label asp-for="UserName" class="control-label col-md-3 col-xs-12"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <input asp-for="UserName" type="text" class="form-control custominput" placeholder="شماره تماس دانش آموز  ..." autocomplete="off" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Teacher Email-->
+                <div>
+                    <label asp-for="Email" class="control-label col-md-3 col-xs-12"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <input asp-for="Email" type="text" class="form-control custominput" placeholder="ایمیل ..." autocomplete="off" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 form-group" style="margin-top:15px;">
+                    <a asp-controller="StudentManagement" asp-action="Index" class="btn btnRed pull-right" style="margin-right:10px; ">
+                        <i class="fas fa-backward"></i>
+                        برگشت
+                    </a>
+                    <button type="submit"
+                            class="btn pull-right btnGreen">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        ثبت اطلاعات
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

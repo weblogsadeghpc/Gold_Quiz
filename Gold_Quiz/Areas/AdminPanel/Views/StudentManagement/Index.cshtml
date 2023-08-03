@@ -1,0 +1,100 @@
+﻿@*namayesh List daneshamoozan*@
+@model IEnumerable<CenterUsers>
+@*Vaghti admin vared bakhshe panel khodesh mishe betone user haye khodesh ro bebine ke mitone shamel Student ya Teacher bashe ke inja hadaf Teacher ast *@
+
+@{
+    ViewData["AdminTitle"] = "لیست دانش آموزان ";
+    int counter = 1;
+}
+
+<style>
+    .table > tbody > tr > td {
+        padding: 5px 20px 2px 2px;
+        /*padding tak tak cell haro taghir mide*/
+    }
+</style>
+<div class="content">
+    @*andaze contect besho*@
+
+
+    <div class="panel panel-heading" style="box-shadow:3px 1px 1px 0 gray; border-radius:2px;">
+        <span style="font-weight:bold;">
+            <i class="fas chalkboard-teacher"></i>
+            لیست دانش آموزان
+        </span>
+    </div>
+
+    <div class="panel panel-heading" style="box-shadow:3px 1px 1px 0 gray; border-radius:2px;" background-color: "#dae2fb;">
+        <span>
+            <span style="font-weight:bold;">&#10004;</span> توجه : جهت <b>ثبت گروهی دانش آموز</b> ابتدا فایل اکسل نمونه را دانلود کنید و مطابق نمونه اطلاعات را بارگزاری کنید .
+        </span>
+    </div>
+
+    <div style="margin-bottom:5px;">
+        <a class="btn btnBlue" asp-area="AdminPanel" asp-controller="StudentManagement" asp-action="Create">
+            <i class="glyphicon glyphicon-plus"></i>
+            ثبت دانش آموز جدید
+        </a>
+
+        <a class="btn btnBlue" asp-controller="StudentManagement" asp-action="#">
+            <i class="icon-make-group"></i>
+            ثبت گروهی
+        </a>
+
+        <a class="btn btnBlue" asp-controller="StudentManagement" asp-action="#">
+            <i class="icon-download"></i>
+            فایل اکسل نمونه
+        </a>
+    </div>
+
+    <div class="panel panel-body container-fluid"
+         style="border-radius:2px; box-shadow:3px 1px 1px 0 gray; background-color:#dbe1f7;">
+
+        <div class="table-responsive" style="border:1px solid gray; border-radius:2px; box-shadow:3px 3px 3px 0 gray;">
+            <table class="table table-bordered" style="background-color:whitesmoke;">
+                <thead>
+                    <tr style="font-size: 14px; font-weight: bold; background-color: #aca8ef;">
+                        <td style="width:40px;">ردیف</td>
+                        <td>نام دانش آموز</td>
+                        <td>نام خانوادگی دانش آموز</td>
+                        <td>شماره تماس</td>
+                        <td>ٍایمیل</td>
+                        <td>وضعیت</td>
+                        <td style="width:220px;">عملیات</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @*model ro darim daryaft mikonim az controller
+
+                    counter = shomare radfe
+                    *@
+                        <tr style="font-size:13px;">
+                            <td style="width:60px; text-align:center;">@counter</td>
+                            <td style="text-align:right; white-space:pre-line">@item.Users_ST.FirstName</td>
+                            <td style="text-align:right; white-space:pre-line">@item.Users_ST.Family</td>
+                            <td style="text-align:right; white-space:pre-line">@item.Users_ST.UserName</td>
+                            <td style="text-align:right; white-space:pre-line">@item.Users_ST.Email</td>
+                            <td style="padding-top:auto; background-color:@(item.Users_ST.IsActive == 1 ? "#96e796" : "#e9abab"); text-align:right; white-space:pre-line">
+                                @(item.Users_ST.IsActive == 1 ? "فعال" : "غیرفعال")
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <a asp-controller="TeacherManagement" asp-action="Edit" asp-route-TeacherID="@item.CenterUserID" style="height:30px; width:80px; font-size:10px; margin-bottom:3px;">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        ویرایش
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
