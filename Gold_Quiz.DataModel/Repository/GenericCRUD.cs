@@ -55,6 +55,8 @@ namespace Gold_Quiz.DataModel.Repository
             Delete(entity);
         }
 
+        public virtual void DeleteByRange(IEnumerable<Entity> entities) => _table.RemoveRange(entities);
+
         public virtual IEnumerable<Entity> Get(Expression<Func<Entity, bool>> whereVariable = null, string joinString = "") // null ham mitone bashe , Join ham darim 
         {
             // halate shart ham toosh byad begzarim 

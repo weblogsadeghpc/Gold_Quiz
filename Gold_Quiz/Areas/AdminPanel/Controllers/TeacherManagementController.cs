@@ -21,13 +21,16 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly IMapper _mapper;
         private readonly ICenterRepository _center;
+        private readonly IUserRepository _user;
 
-        public TeacherManagementController(IUnitOfWork context, ICenterRepository center, UserManager<ApplicationUsers> userManager, IMapper mapper)
+        public TeacherManagementController(IUnitOfWork context, ICenterRepository center,
+            UserManager<ApplicationUsers> userManager, IMapper mapper, IUserRepository user)
         {
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
             _center = center;
+            _user = user;
         }
         public IActionResult Index()
         {
@@ -64,7 +67,7 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                         {
                             ModelState.AddModelError("CourseID", "لطفا حداقل یک درس انتخاب کنید .");
                             CourseList();
-                            return View("Create");
+                            return View(model);
                         }
                         var user = await _userManager.FindByNameAsync(model.UserName);
                         if (user != null)
@@ -162,6 +165,79 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
             Teacher.UserID = TeacherID;
             CourseList(); // bayad seda zade shavad
             return View(Teacher);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(TeacherViewModel model, int[] CourseID)
+        {
+            if (ModelState.IsValid) // yani hame etelaat be dorosti vared shode bood
+            {
+                using (var tr = _context.BaseTransaction())
+                {
+                    // نقش عملیات را دارد
+                    //Register
+                    try
+                    {
+                        var getCenterID = _center.GetCenterID(_userManager.GetUserId(HttpContext.User));
+                        if (CourseID.Length == 0)
+                        {
+                            ModelState.AddModelError("CourseID", "لطفا حداقل یک درس انتخاب کنید .");
+                            CourseList();
+                            return View(model);
+                        }
+
+                        //1 - حذف دروس معلم 
+                        var TeachercourseList =
+                            _context.teacherCourseUW.Get(t => t.TeacherID == model.UserID).ToList(); // list az doros moalemi ke entekhab kardim 
+                        if (TeachercourseList.Count > 0)
+                        {
+                            _context.teacherCourseUW.DeleteByRange(TeachercourseList);
+                            _context.Save();
+                        }
+
+                        //ثبت دروس برای معلم - 2 
+                        for (int i = 0; i < CourseID.Length; i++)
+                        {
+                            TeacherCourse TC = new TeacherCourse
+                            {
+                                TeacherID = model.UserID,  // 
+                                CenterID = getCenterID,
+                                CourseID = CourseID[i],
+                                TeacherAdminID = _userManager.GetUserId(HttpContext.User) // useri ke alan dare sabt etelaat anjam mide
+                            };
+                            _context.teacherCourseUW.Create(TC); // har bar darsi sabt mishe bayad baraye moalem ham sabt beshe
+                        }
+
+                        // 3 - ویرایش اطلاعات کاربر 
+                        // نام و نام خانوادگی تغییر 
+                        _user.UpdateUserInfo(model); // dastor save ro inja neveshtim _context.Save() ro bar midarim 
+
+
+                        tr.commit();
+                        _context.Save();
+
+                        // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
+
+                        return RedirectToAction("Index");
+                        // 3 ja etelaat sabt mishe : 
+                        //1- Role
+                        //2- User
+                        //3- Centers
+                    }
+                    catch (Exception)
+                    {
+                        tr.RollBack(); // hich kari anjam nade
+                        return RedirectToAction("Error", "Home"); // agar error didi boro be controller => home action => error 
+
+                    }
+                }
+            }
+            else
+            {
+                //namayesh khataha
+                return View(model);
+            }
         }
     }
 }

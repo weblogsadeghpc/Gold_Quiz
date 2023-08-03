@@ -56,6 +56,7 @@ namespace Gold_Quiz
 
             services.AddScoped<IUnitOfWork, UnitOfWork>(); // service rahandasi shod .
             services.AddScoped<ICenterRepository, CenterRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
