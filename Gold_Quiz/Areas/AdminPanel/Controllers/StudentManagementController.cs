@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace Gold_Quiz.Areas.AdminPanel.Controllers
@@ -112,6 +113,12 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                 return View(model);
             }
 
+        }
+
+        [HttpGet]
+        public IActionResult UploadAndImportExcell()
+        {
+            return PartialView("_uploadAndImportExcell");
         }
     }
 }

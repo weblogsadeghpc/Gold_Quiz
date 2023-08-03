@@ -28,6 +28,7 @@
     <Folder Include="Areas\TeacherPanel\Models\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\js\modaljs\" />
     <Folder Include="wwwroot\Panel\assets\js\charts\google\bars\" />
     <Folder Include="wwwroot\Panel\assets\js\charts\google\bubbles\" />
     <Folder Include="wwwroot\Panel\assets\js\charts\google\lines\" />

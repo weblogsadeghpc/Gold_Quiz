@@ -1,5 +1,6 @@
 ﻿@*namayesh List daneshamoozan*@
 @model IEnumerable<CenterUsers>
+@using Gold_Quiz.CommonLayer.PublicClasses
 @*Vaghti admin vared bakhshe panel khodesh mishe betone user haye khodesh ro bebine ke mitone shamel Student ya Teacher bashe ke inja hadaf Teacher ast *@
 
 @{
@@ -36,7 +37,8 @@
             ثبت دانش آموز جدید
         </a>
 
-        <a class="btn btnBlue" asp-controller="StudentManagement" asp-action="#">
+        <a class="btn btnBlue" asp-controller="StudentManagement" asp-action="UploadAndImportExcell"
+        data-toggle="modal" data-target="#modal-action">
             <i class="icon-make-group"></i>
             ثبت گروهی
         </a>
@@ -98,3 +100,13 @@
     </div>
 
 </div>
+
+@Html.Partial("_Modal",new BootstrapModel{
+
+    ID = "modal-action",
+    Size = BootstrapModel.ModalSize.Large
+})
+
+@section AdminScripts{
+    <script src="~/js/modaljs/modal.js"></script>
+}
