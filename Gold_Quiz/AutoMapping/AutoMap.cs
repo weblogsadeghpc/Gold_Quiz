@@ -13,6 +13,7 @@ namespace Gold_Quiz.AutoMapping
             CreateMap<Courses, CourseViewModel>().ReverseMap();
             // Create Teacehr 
             CreateMap<ApplicationUsers, TeacherViewModel>().ReverseMap(); // yani in view az ki moshtagh shode
+            CreateMap<ApplicationUsers, StudentViewModel>().ReverseMap();
         }
     }
 }

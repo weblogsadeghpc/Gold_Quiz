@@ -24,7 +24,8 @@ namespace Gold_Quiz.DataModel.Models
         [RegularExpression(@"^[^\\/:*;\.\)\(]+$", ErrorMessage = "کاراکترهای غیر مجاز وارد شده است.")]
         public string UserName { get; set; }
         [Display(Name = "ایمیل")]
-        [EmailAddress(ErrorMessage = " ایمیل وارد شده صحیح نمیباشد . ")]
+        [Required(AllowEmptyStrings = true, ErrorMessage = "ایمیل وارد نشده است .")]
+        [EmailAddress(ErrorMessage = " ایمیل وارد شده صحیح نمی باشد . ")]
         public string Email { get; set; }
         public string UserID { get; set; }
     }
