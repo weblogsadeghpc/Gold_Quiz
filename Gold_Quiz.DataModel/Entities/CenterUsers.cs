@@ -12,9 +12,14 @@ namespace Gold_Quiz.DataModel.Entities
     {
         [Key]
         public int CenterUsersID { get; set; }
-        public string CenterAdminID { get; set; }
+        public string CenterAdminID { get; set; } // student or teacher id 
         public string CenterUserID { get; set; }
         public int CenterID { get; set; }
+        public byte UserType { get; set; }
+        //1 Admin
+        //2 Teacher
+        //3 Student
+        //4 Super admin
 
         [ForeignKey("CenterAdminID")]
         public virtual ApplicationUsers Users_Admin { get; set; }

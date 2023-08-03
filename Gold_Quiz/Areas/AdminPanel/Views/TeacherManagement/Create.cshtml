@@ -5,7 +5,30 @@
 
 @{
     ViewData["AdminTitle"] = "ثبت مدرس جدید";
+    List<Courses> ListCourse = ViewBag.CourseList;
 }
+
+<style>
+    .select2-selection {
+        border: 1px solid gray !important;
+        border-radius: 0px !important;
+        height: 35px !important;
+        direction: rtl !important;
+        color: black;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        color: black;
+    }
+
+    .select2-container--default {
+        width: 100% !important;
+    }
+
+    .select2-results__options {
+        text-align: right;
+    }
+</style>
 
 <div class="content">
     <div class="panel panel-heading" style="box-shadow:3px 1px 0 gray; border-radius:2px;">
@@ -38,12 +61,22 @@
                     </div>
                 </div>
 
-                <!--Teacher Last name-->
+                <!--Teacher User name-->
                 <div>
                     <label asp-for="UserName" class="control-label col-md-3 col-xs-12"></label>
                     <div class="col-md-9 col-xs-12">
                         <input asp-for="UserName" type="text" class="form-control custominput" placeholder="شماره تماس مدرس ..." autocomplete="off" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Teacher Course Selection-->
+                <div>
+                    <label asp-for="UserName" class="control-label col-md-3 col-xs-12"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <select asp-for="CourseID" multiple asp-items="@(new SelectList(ListCourse, "CourseID", "CourseName"))" class="form-control js-multiple custominput"></select>
+                        @*asp-items = etelaat az koja begir*@
+                        <span asp-validation-for="CourseID" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -60,3 +93,14 @@
     </div>
 
 </div>
+
+@section AdminScripts{
+    <script>
+        $(document).ready(function () { // vaghti safhe load mishe yek function khahi dasht ke class js-multiple ro peyda mikone va select2 ro behesh mide
+            $('.js-multiple').select2({
+                placeholder: "انتخاب درس",
+                allowclear: true
+            });
+        });
+    </script>
+}

@@ -13,6 +13,11 @@ namespace Gold_Quiz.DataModel.Entities
         public string FirstName { get; set; }
         public string Family { get; set; }
         public byte UserType { get; set; }
+        //1 Admin
+        //2 Teacher
+        //3 Student
+        //4 Super admin
+
         // control bar roye account ha
         //true = Active Account
         //false = deactive Account 

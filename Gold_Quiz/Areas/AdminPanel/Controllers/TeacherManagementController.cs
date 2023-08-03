@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gold_Quiz.Areas.AdminPanel.Controllers
@@ -41,12 +43,13 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
         [HttpGet] // action method az type get
         public IActionResult Create()
         {
+            CourseList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TeacherViewModel model)
+        public async Task<IActionResult> Create(TeacherViewModel model, int[] CourseID) // yek vorodi array integer dare be sorate vorodi 
         {
             if (ModelState.IsValid) // yani hame etelaat be dorosti vared shode bood
             {
@@ -56,6 +59,13 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                     //Register
                     try
                     {
+                        var getCenterID = _center.GetCenterID(_userManager.GetUserId(HttpContext.User));
+                        if (CourseID.Length == 0)
+                        {
+                            ModelState.AddModelError("CourseID", "لطفا حداقل یک درس انتخاب کنید .");
+                            CourseList();
+                            return View("Create");
+                        }
                         var user = await _userManager.FindByNameAsync(model.UserName);
                         if (user != null)
                         {
@@ -81,21 +91,37 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                             CenterUsers CU = new CenterUsers
                             {
                                 CenterAdminID = _userManager.GetUserId(HttpContext.User),// hamin usr ke dare etelaat ro submit mikone user admin ast 
-                                CenterID = _center.GetCenterID(_userManager.GetUserId(HttpContext.User)),
-                                CenterUserID = mapUser.Id // id modares ya daneshamooz
+                                CenterID = getCenterID,
+                                CenterUserID = mapUser.Id, // id modares ya daneshamooz
+                                UserType = 2
                             };
                             _context.centerUsersUW.Create(CU);
-                            tr.commit();
-                            _context.Save();
 
-                            // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
+                            //ثبت دروس برای معلم - 4 
+                            for (int i = 0; i < CourseID.Length; i++)
+                            {
+                                TeacherCourse TC = new TeacherCourse
+                                {
+                                    TeacherID = mapUser.Id,  // 
+                                    CenterID = getCenterID,
+                                    CourseID = CourseID[i],
+                                    TeacherAdminID = _userManager.GetUserId(HttpContext.User) // useri ke alan dare sabt etelaat anjam mide
+                                };
+                                _context.teacherCourseUW.Create(TC); // har bar darsi sabt mishe bayad baraye moalem ham sabt beshe
+                            }
 
-                            return RedirectToAction("Index");
-                            // 3 ja etelaat sabt mishe : 
-                            //1- Role
-                            //2- User
-                            //3- Centers
                         }
+                        tr.commit();
+                        _context.Save();
+
+                        // estefade az transaction ha baraye inke ya hamash anjam beshe ya aslan anjam nashe chon mesalan vasatesh internet ghat shod moshke nakhore mesalan Role sakhte nashe az transaction estefade mikonim ke mesle yek tarakonesh kar mikone
+
+                        return RedirectToAction("Index");
+                        // 3 ja etelaat sabt mishe : 
+                        //1- Role
+                        //2- User
+                        //3- Centers
+
                         return RedirectToAction("Error", "Home");
                     }
                     catch (Exception)
@@ -111,6 +137,19 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
                 //namayesh khataha
                 return View(model);
             }
+        }
+
+        private void CourseList()
+        {
+            List<Courses> lstcourses = _context.coursesUW.Get().ToList(); //listi az course ro mikhaim namayesh bedim 
+                                                                          //Courses mdl = new Courses
+                                                                          //{
+                                                                          //    CourseID = -1,
+                                                                          //    CourseName = "... انتخاب درس"
+                                                                          //    // satr ezafe kardim 
+                                                                          //};
+                                                                          //lstcourses.Insert(0, mdl);
+            ViewBag.CourseList = lstcourses;
         }
     }
 }
