@@ -139,8 +139,8 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
             PublicVariable.GetExcell.Clear(); // agar etelaati ya dataii dare hazf bokon felan chon static ast
 
             // تغییر اسم فایل دریافتی 
-            string MyFileName = Path.GetFileNameWithoutExtension(file.FileName.ToString() + "_" +
-                Guid.NewGuid() + Path.GetExtension(file.FileName.ToString()));// esmesho taghir bedim name nabayad dar server tekrari bashe 
+            string MyFileName = Path.GetFileNameWithoutExtension(file.FileName.ToString()) + "_" +
+                Guid.NewGuid() + Path.GetExtension(file.FileName.ToString());// esmesho taghir bedim name nabayad dar server tekrari bashe 
 
             // zakhire dar bakhsh excel file wwwroot
             string foldername = "excelfile";
@@ -211,6 +211,68 @@ namespace Gold_Quiz.Areas.AdminPanel.Controllers
             }
 
             return Json(new { rsb = sb.ToString(), status = "success", filename = MyFileName });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertInDB()
+        {
+            using (var transaction = _context.BaseTransaction())
+            {
+                try
+                {
+                    string getAdminId = _userManager.GetUserId(HttpContext.User);
+                    var getCenterID = _center.GetCenterID(_userManager.GetUserId(HttpContext.User));
+
+                    int gg = (PublicVariable.GetExcell.Count) / 4;
+                    for (int i = 0; i < gg; i++)
+                    {
+                        StudentExcellViewModel SE = new StudentExcellViewModel();
+                        SE.FirstName = PublicVariable.GetExcell[0];
+                        SE.Family = PublicVariable.GetExcell[1];
+                        SE.UserName = "0" + PublicVariable.GetExcell[2];
+                        SE.Email = PublicVariable.GetExcell[3];
+
+                        //Insret Student In DataBase
+                        var user = await _userManager.FindByNameAsync(SE.UserName);
+                        if (user == null)
+                        {
+                            var mapUser = _mapper.Map<ApplicationUsers>(SE);
+                            mapUser.PhoneNumber = SE.UserName;
+                            mapUser.UserType = 3; //Student
+                            mapUser.IsActive = 1; //Active
+
+                            //1 - ثبت نام کاربر 
+                            IdentityResult result = await _userManager.CreateAsync(mapUser, "123456");
+                            if (result.Succeeded)
+                            {
+                                //2 -ثبت نقش به کاربر
+                                await _userManager.AddToRoleAsync(mapUser, "Student");
+                                // 3 - ثبت اطلاعات دانش آموز در مرکز
+                                CenterUsers CU = new CenterUsers
+                                {
+                                    CenterAdminID = _userManager.GetUserId(HttpContext.User),
+                                    CenterID = getCenterID,
+                                    CenterUserID = mapUser.Id,
+                                    UserType = 3
+                                };
+                                _context.centerUsersUW.Create(CU);
+                            }
+                            _context.Save();
+                            for (int j = 0; j < 4; j++)
+                            {
+                                PublicVariable.GetExcell.RemoveAt(0);
+                            }
+                        }
+                    }
+                    transaction.commit();
+                    return Json(new { status = "ok" });
+                }
+                catch (Exception)
+                {
+                    transaction.RollBack();
+                    return Json(new { status = "error" });
+                }
+            }
         }
     }
 }

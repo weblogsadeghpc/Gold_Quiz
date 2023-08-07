@@ -1,41 +1,44 @@
 ﻿<div class="content">
-    @*andaze contect besho*@
 
-
-    <div class="panel panel-heading" style="box-shadow:3px 1px 1px 0 gray; border-radius:2px;">
+    <div class="panel panel-heading"
+         style="box-shadow: 3px 1px 1px 0 gray; border-radius: 2px; background-color: #dae2fb;">
         <span style="font-weight:bold;">
-            <i class="fas chalkboard-teacher"></i>
+            <i class="fas fa-list-alt"></i>
             فرم ثبت گروهی دانش آموز
         </span>
     </div>
 
-    <div class="panel panel-heading" style="box-shadow:3px 1px 1px 0 gray; border-radius:2px;" background-color: "#dae2fb;">
+    <div class="panel panel-heading" style="box-shadow: 3px 1px 1px 0 gray; border-radius: 2px; background-color:#f6f2c9;">
         <span>
-            <span style="font-weight:bold;">&#10004;</span> <span>جهت ثبت گروهی دانش آموز ابتدا فایل اکسل حاوی اطلاعات دانش آموز را انتخاب کنید سپس روی دکمه ی نمایش اطلاعات کلیلک کنید  . </span>
+            <span style="font-weight:bold;">&#10004;</span> جهت ثبت گروهی دانش آموز ابتدا فایل اکسل حاوی اطلاعات دانش آموز را انتخاب کنید، سپس روی دکمه نمایش اطلاعات از اکسل کلیک نمایید.
         </span>
     </div>
 
     <div class="panel panel-body">
+
         <div class="form-group col-md-12">
-            <label class="control-label col-md-3 ">انتخاب فایل</label>
+            <label class="control-label col-md-3">انتخاب فایل</label>
             <div class="form-horizontal col-md-6">
-                <input type="file" name="files" id="files" style="margin-bottom:15px;" />
+                <input type="file" id="files" name="files" style="margin-bottom:15px;" />
             </div>
             <div class="col-md-3">
                 <input type="button" id="btnUpload" class="btn btnGreen" style="border-radius:2px;" value="نمایش اطلاعات از اکسل" />
-
             </div>
         </div>
+
     </div>
 
-    <div id="divtable" class="hidden panel panel-body container-fluid" style="border-radius:2px; box-shadow:3px 1px 1px 0 black; background-color:brown;">
-        <div style="text-align:center; font-weight:bold; margin-bottom:0px;">
+    <input type="text" class="hidden" id="filename" name="filename" />
+
+    <div id="divtable" class="hidden panel panel-body container-fluid"
+         style="border-radius:2px; box-shadow:3px 1px 1px 0 gray; background-color:#dbe1f7;">
+
+        <div style="text-align: center; font-weight: bold; margin-bottom:0px;">
             لیست دانش آموزان شما
         </div>
 
-        <div class="table table-responsive container-fluid" id="dvData">
-            @*table mishe table sakhte mishe*@
-        </div>
+        <div class="table table-responsive container-fluid" id="dvData"></div>
+
     </div>
 
     <a class="btn btnGreen pull-right hidden" id="okcontinue">
@@ -43,44 +46,68 @@
     </a>
 </div>
 
+
 <script>
-    $(document.ready(function () {
-        // havaght roye btn upload click shod inkaro bokon
-        // harvaght document baz shod function darim
+    $(document).ready(function () {
+
         $('#btnUpload').on('click', function (e) {
             e.preventDefault();
-            var fileExtention = ['xls', 'xlsx']; // paswand file
-            var filename = $('files').val();
 
+            var fileExtension = ['xls', 'xlsx'];
+            var filename = $('#files').val();
             //کنترل انتخاب فایل و انتخاب فایل اکسل
             if (filename.length == 0) {
-                alert('لطفا ابتدا یک فایل را انتخاب نمایید .');
+                alert("لطفا ابتدا یک فایل اکسل را انتخاب نمایید");
                 return false;
             }
             else {
-                var extention = filename.replace('/^.*\./', '');// agar inharo dar esm dasht hazfeshoon kon
-                // control faghat yek file entekhab shode bashe va oon hatman excel bashe
-                if ($.inArray(extention, fileExtention) == -1) {
-                    //faghat excel
-                    alert('شما فقط مجاز به انتخاب فایل اکسل هستید .')
+                var extension = filename.replace(/^.*\./, '');
+                if ($.inArray(extension, fileExtension) == -1) {
+                    alert("شما فقط مجاز به انتخاب فایل از نوع اکسل هستید.");
                     return false;
                 }
             }
-
-            // ba ajax be samte database etelaat ro mifrestim
             var fdata = new FormData();
             var fileUpload = $("#files").get(0);
-            var files = fileUpload.files; // ijad array az data va ma mitonim etelaat befrestim samte server
+            var files = fileUpload.files;
             fdata.append(files[0].name, files[0]);
-
             $.ajax({
                 type: "POST",
-                url : '@Url.Action("ExcellImport","StudentManagment")' ,  // be koja befreste 
-                data: fdata , //chibefrestam
-                success: function (response){
-                    alert('OK');
+                url: '@Url.Action("ExcellImport", "StudentManagement")',
+                data: fdata,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status == 'success') {
+                        $("#divtable").removeClass("hidden");
+                        $("#okcontinue").removeClass("hidden");
+                        $('#dvData').html(response.rsb);
+                        $("#filename").val(response.filename);
+                    }
+                },
+                error: function (e) {
+                    $("#divtable").removeClass("hidden");
+                    $('#dvData').html("در نمایش اطلاعات از فایل اکسل خطایی رخ داد");
                 }
+
             });
         });
-    }));
+    });
+</script>
+
+<script>
+    $("#okcontinue").on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("InsertInDB", "StudentManagement")',
+            data: {
+                //'filename': $("#filename").val(),
+            }
+        }).done(function (res) {
+            if (res.status == 'ok') {
+                alert('دانش آموزان با موفقیت ثبت شدند.');
+            }
+        });
+    });
 </script>

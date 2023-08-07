@@ -14,6 +14,7 @@ namespace Gold_Quiz.AutoMapping
             // Create Teacehr 
             CreateMap<ApplicationUsers, TeacherViewModel>().ReverseMap(); // yani in view az ki moshtagh shode
             CreateMap<ApplicationUsers, StudentViewModel>().ReverseMap();
+            CreateMap<ApplicationUsers, StudentExcellViewModel>().ReverseMap();
         }
     }
 }

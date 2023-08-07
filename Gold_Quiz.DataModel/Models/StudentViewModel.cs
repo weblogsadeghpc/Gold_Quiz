@@ -29,4 +29,12 @@ namespace Gold_Quiz.DataModel.Models
         public string Email { get; set; }
         public string UserID { get; set; }
     }
+
+    public class StudentExcellViewModel
+    {
+        public string FirstName { get; set; }
+        public string Family { get; set; }
+        public string UserName{ get; set; }
+        public string Email { get; set; }
+    }
 }
